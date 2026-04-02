@@ -24,3 +24,4 @@ dist-ssr
 *.sw?
 
 pwa/
+node-compile-cache/
