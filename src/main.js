@@ -1,6 +1,21 @@
 import "./style.css";
 import handleData from "./arenaAPI.js";
 
+function registerServiceWorker() {
+  if (!("serviceWorker" in navigator)) return;
+
+  globalThis.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/sw.js")
+      .then((registration) => {
+        console.log("SW registered:", registration.scope);
+      })
+      .catch((error) => {
+        console.error("SW registration failed:", error);
+      });
+  });
+}
+
 // ---------------------------------------------------------------------------
 // State
 // ---------------------------------------------------------------------------
@@ -499,21 +514,5 @@ async function init() {
 }
 
 globalThis.onload = init;
-
-
-function registerServiceWorker() {
-  if (!("serviceWorker" in navigator)) return;
-
-  globalThis.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("/sw.js")
-      .then((registration) => {
-        console.log("SW registered:", registration.scope);
-      })
-      .catch((error) => {
-        console.error("SW registration failed:", error);
-      });
-  });
-}
 
 registerServiceWorker();
