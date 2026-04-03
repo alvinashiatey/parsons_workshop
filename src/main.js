@@ -5,8 +5,10 @@ function registerServiceWorker() {
   if (!("serviceWorker" in navigator)) return;
 
   globalThis.addEventListener("load", () => {
+    const serviceWorkerUrl = new URL("sw.js", import.meta.env.BASE_URL);
+
     navigator.serviceWorker
-      .register("/sw.js")
+      .register(serviceWorkerUrl)
       .then((registration) => {
         console.log("SW registered:", registration.scope);
       })

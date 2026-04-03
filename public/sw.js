@@ -2,11 +2,16 @@ const STATIC_CACHE = "offkilter-static-v1";
 const API_CACHE = "offkilter-api-v1";
 const IMAGE_CACHE = "offkilter-images-v1";
 
-const STATIC_ASSETS = ["/", "/index.html", "/manifest.json"];
-
 self.addEventListener("install", (event) => {
+  const scope = self.registration.scope;
+  const staticAssets = [
+    scope,
+    new URL("index.html", scope).toString(),
+    new URL("manifest.json", scope).toString(),
+  ];
+
   event.waitUntil(
-    caches.open(STATIC_CACHE).then((cache) => cache.addAll(STATIC_ASSETS)),
+    caches.open(STATIC_CACHE).then((cache) => cache.addAll(staticAssets)),
   );
   self.skipWaiting();
 });
